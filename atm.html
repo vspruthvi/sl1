@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<title>ATM Page</title>
+	</head>
+
+	<body>
+		<h1>ATM Page</h1>
+
+		<h2>Your Current Balance is {{balance}}</h2>
+
+		<h3>Number of Transactions: {{count}}</h3>
+
+		<h5>{{msg}}</h5>
+
+		<form id=bankForm action={{url_for('atmside')}} method="POST">
+			Enter Amount: <input type=number name=amount><br>
+			<input type=submit name=action value=Withdraw onclick="return validate(this)" >
+			<input type=submit name=action value=Deposit onclick="return validate(this)" >
+		</form>
+
+		<script>
+		
+			function validate(button)	{
+
+				form=document.getElementById("bankForm");
+				
+				if(form.amount.value=="")	{
+					alert("Amount cannot be Blank!");
+					return false;
+				}
+	
+				if(parseInt(form.amount.value)<0)		{
+					alert("Amount cannot be Negative!");
+					return false;				
+				}
+			
+				if(button.value=="Withdraw" && parseInt(form.amount.value)>5000)	{
+					alert("Amount Withdrawn cannot exceed Rs.5000/-");
+					return false;
+				}
+
+				if(button.value=="Deposit" && parseInt(form.amount.value)>10000)	{
+					alert("Amount Deposited cannot exceed Rs.10000/-");
+					return false;
+				}
+
+				return true;
+			}
+		</script>
+
+	</body>
+
+
+</html>
